@@ -1,0 +1,5 @@
+{
+  "firebase": "resplendent-fire-732",
+  "public": "public",
+  "rules": "config/rules.json"
+}
