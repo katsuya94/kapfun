@@ -46,31 +46,11 @@
 				</div><!-- /.container-fluid -->
 			</nav>	
 			<div class="container-fluid" style="padding-top:50px; padding-left:0px;">
-				<div class="jumbotron" style="height:auto; min-height:700px; width:1400px; border-radius:15px; margin:20px; padding:25px;">
-					  <div id="custom_thumbnails" style="align:center;">
-						<p><span style="color:White; align:center;">Top Five Trending</span></p>
-						<a href="#"><img src="pImage.png" style="height:221px; padding:2px; margin-left:10px; border-radius:5px;"></a>
-						<a href="#"><img src="pImage.png" style="height:221px; padding:2px; border-radius:5px;"></a>
-						<a href="#"><img src="pImage.png" style="height:221px; padding:2px; border-radius:5px;"></a>
-						<a href="#"><img src="pImage.png" style="height:221px; padding:2px; border-radius:5px;"></a>
-						<a href="#"><img src="pImage.png" style="height:221px; padding:2px; border-radius:5px;"></a>
-					<div id="custom_thumbnails" style="margin-top:20px;">
-						<p><span style="color:White; align:center;">Random</span></p>
-						<a href="#"><img src="pImage.png" style="height:221px; padding:2px; margin-left:10px; border-radius:5px;"></a>
-						<a href="#"><img src="pImage.png" style="height:221px; padding:2px; border-radius:5px;"></a>
-						<a href="#"><img src="pImage.png" style="height:221px; padding:2px; border-radius:5px;"></a>
-						<a href="#"><img src="pImage.png" style="height:221px; padding:2px; border-radius:5px;"></a>
-						<a href="#"><img src="pImage.png" style="height:221px; padding:2px; border-radius:5px;"></a>
-					</div>
-					
+				<div class="jumbotron" style="height:1000px; width:1400px; border-radius:15px; margin:20px; padding:50px;">
+				hi
 				</div>
-
 			</div>
 		</div> 
-
-
-
-
 
 
 
