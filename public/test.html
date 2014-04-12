@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script src='https://code.jquery.com/jquery-1.11.0.min.js'></script>
+	<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
+	<script type='text/javascript' src='js/schema.js'></script>
+	<script type='text/javascript'>
+	$(function() {
+		var files;
+		k = new kapfun();
+
+		k.reset();
+
+		var images = [];
+		images.push(k.addImage('url0'));
+		images.push(k.addImage('url1'));
+		images.push(k.addImage('url2'));
+
+		var captions = [];
+		captions.push(k.addCaption(images[0], 'text0'));
+		captions.push(k.addCaption(images[0], 'text1'));
+		captions.push(k.addCaption(images[0], 'text2'));
+		captions.push(k.addCaption(images[1], 'text3'));
+		captions.push(k.addCaption(images[1], 'text4'));
+		captions.push(k.addCaption(images[1], 'text5'));
+		captions.push(k.addCaption(images[2], 'text6'));
+		captions.push(k.addCaption(images[2], 'text7'));
+		captions.push(k.addCaption(images[2], 'text8'));
+
+		for(var i = 0; i < 9; i++) {
+			for(var j = 0; j < i; j++) {
+				k.shareCaption(captions[i]);
+			}
+		}
+
+		k.updateCaptionIndex();
+
+		$('#file').on('change', function(event) {
+			files = event.target.files;
+		});
+
+		function success(result) {
+			k.addImage('https://imgur.com/gallery/' + result.data.id);
+		}
+
+		$('#form').on('submit', function(event) {
+			event.stopPropagation();
+			event.preventDefault();
+
+			if($('#url').val().length) {
+				$.ajax({
+					url: 'https://api.imgur.com/3/image',
+					method: 'POST',
+					cache: false,
+					headers: {
+						Authorization: 'Client-ID 5b607a26ccbd041',
+					},
+					data: {
+						image: $('#url').val()
+					},
+					success: success
+				});
+			} else {
+				var data = new FormData();
+				data.append('image', files[0]);
+
+				console.log(data);
+
+				$.ajax({
+					url: 'https://api.imgur.com/3/image',
+					method: 'POST',
+					cache: false,
+					contentType: false,
+					processData: false,
+					headers: {
+						Authorization: 'Client-ID 5b607a26ccbd041',
+					},
+					data: data,
+					success: success
+				});
+			}
+		});
+	});
+	</script>
+</head>
+<body>
+	<form id="form" action="#" method="post" enctype="multipart/form-data">
+		<label for="file">Filename:</label>
+		<input type="file" name="image" id="file" /><br />
+		<label for="url">URL:</label>
+		<input type="url" name="image" id="url" /><br />
+		<input type="submit" name="submit" value="Submit">
+	</form>
+
+</body>
+</html>
