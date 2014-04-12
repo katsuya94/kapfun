@@ -12,7 +12,6 @@ function imgur() {
 		},
 		success: function(result) {
 			var id = result.data.id;
-			console.log(id);
 		}
 	});
 }

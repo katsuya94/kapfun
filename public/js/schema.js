@@ -11,25 +11,33 @@ function _kapfun() {
 		return val + 1;
 	};
 
-	object.prototype.addImage = function(url) {
-		return images.push({ url: url, shares: 0 });
+	var empty = function() {};
+
+	object.prototype.addImage = function(url, callback) {
+		callback = callback || empty;
+		var ref = images.push();
+		ref.set({ url: url, shares: 0 }, function() {
+			callback(ref);
+		});
 	};
 
-	object.prototype.addCaption = function(image, text, tags) {
-		var caption = captions.push({ image_id: image.name(), text: text, shares: 0 });
+	object.prototype.addCaption = function(image, text, tags, callback) {
+		callback = callback || empty;
+		var caption = captions.push();
 		tags = tags || [];
-		for (var i = 0; i < tags.length; i++) {
-			caption.child('tags').push(tags[i]);
-			image.child('tags').child(tags[i]).transaction(increment);
-		}
-		image.child('captions').push(caption.name());
-		return caption;
+		caption.set({ image_id: image.name(), text: text, shares: 0 }, function() {
+			var ref1 = caption.child('tags').set(tags.join(','), function() {
+				callback(caption);
+			});
+		})
 	};
 
-	object.prototype.shareCaption = function(caption) {
-		caption.child('shares').transaction(increment);
-		applyCaptionImage(caption, function(image) {
-			image.child('shares').transaction(increment);
+	object.prototype.shareCaption = function(caption, callback) {
+		callback = callback || empty;
+		caption.child('shares').transaction(increment, function() {
+			applyCaptionImage(caption, function(image) {
+				image.child('shares').transaction(increment, callback);
+			});
 		});
 	};
 
@@ -42,6 +50,7 @@ function _kapfun() {
 	};
 
 	object.prototype.mapImageCaptions = function(image, callback) {
+		callback = callback || empty;
 		image.child('captions').on('child_added', function(s) {
 			captions.child(s.val()).on('value', function(t) {
 				callback(t.val());
@@ -50,6 +59,7 @@ function _kapfun() {
 	};
 
 	var applyCaptionImage = function(caption, callback) {
+		callback = callback || empty;
 		caption.child('image_id').on('value', function(s) {
 			callback(images.child(s.val()));
 		});
@@ -57,31 +67,36 @@ function _kapfun() {
 	object.prototype.applyCaptionImage = applyCaptionImage;
 
 	object.prototype.mapCaptionTags = function(caption, callback) {
+		callback = callback || empty;
 		caption.child('tags').on('child_added', function(s) {
 			callback(s.val());
 		});
 	};
 
 	object.prototype.mapImageTags = function(image, callback) {
+		callback = callback || empty;
 		image.child('tags').on('child_added', function(s) {
 			callback(s.val());
 		});
 	};
 
-	object.prototype.updateCaptionIndex = function() {
+	object.prototype.updateCaptionIndex = function(callback) {
+		callback = callback || empty;
 		captions.on('child_added', function(s) {
-			captionIndex.push().setWithPriority({ caption_id: s.name(), timestamp: Date.now() }, s.val().shares);
+			captionIndex.push().setWithPriority({ caption_id: s.name(), timestamp: Date.now() }, s.val().shares, callback);
 		});
 	};
 
 	object.prototype.mapCaptions = function(callback) {
+		callback = callback || empty;
 		captionIndex.on('child_added', function(s) {
 			callback(captions.child(s.val().caption_id).val());
 		});
 	};
 
-	object.prototype.reset = function() {
-		root.set(null);
+	object.prototype.reset = function(callback) {
+		callback = callback || empty;
+		root.set(null, callback);
 	};
 
 	return object;

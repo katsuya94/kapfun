@@ -9,31 +9,44 @@
 		var files;
 		k = new kapfun();
 
-		k.reset();
+		var captionCount = 0;
 
-		var images = [];
-		images.push(k.addImage('url0'));
-		images.push(k.addImage('url1'));
-		images.push(k.addImage('url2'));
-
-		var captions = [];
-		captions.push(k.addCaption(images[0], 'text0'));
-		captions.push(k.addCaption(images[0], 'text1'));
-		captions.push(k.addCaption(images[0], 'text2'));
-		captions.push(k.addCaption(images[1], 'text3'));
-		captions.push(k.addCaption(images[1], 'text4'));
-		captions.push(k.addCaption(images[1], 'text5'));
-		captions.push(k.addCaption(images[2], 'text6'));
-		captions.push(k.addCaption(images[2], 'text7'));
-		captions.push(k.addCaption(images[2], 'text8'));
-
-		for(var i = 0; i < 9; i++) {
-			for(var j = 0; j < i; j++) {
-				k.shareCaption(captions[i]);
-			}
+		var populateShares = function(caption, callback) {
+			captionCount++;
+			for(var i = 0; i < captionCount; i++)
+				k.shareCaption(caption);
+			callback();
 		}
 
-		k.updateCaptionIndex();
+		var populateCaptions = function(image, callback) {
+			k.addCaption(image, 'text' + captionCount, [], function(i) {
+				populateShares(i, function() {
+					k.addCaption(image, 'text' + captionCount, [], function(j) {
+						populateShares(j, function() {
+							k.addCaption(image, 'text' + captionCount, [], function(k) {
+								populateShares(k, function() {
+									callback();
+								});
+							});
+						});
+					});
+				});
+			});
+		};
+
+		k.reset(function() {
+			k.addImage('url0', function(i) {
+				populateCaptions(i, function() {
+					k.addImage('url1', function(j) {
+						populateCaptions(j, function() {
+							k.addImage('url2', function(k) {
+								populateCaptions(k, function() {});
+							});
+						});
+					});
+				});
+			});
+		});
 
 		$('#file').on('change', function(event) {
 			files = event.target.files;
