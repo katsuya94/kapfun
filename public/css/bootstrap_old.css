@@ -277,7 +277,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #ffffff;
-  background-color: #108a93;
+  background-image:url('http://www.atlantablackstar.com/wp-content/uploads/2013/04/family-guy-family-guy-32854281-1920-1080.jpg');
 }
 input,
 button,
@@ -736,8 +736,8 @@ pre code {
 .container {
   margin-right: auto;
   margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 0px;
+  padding-right: px;
 }
 @media (min-width: 768px) {
   .container {
@@ -3639,7 +3639,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar {
   position: relative;
-  min-height: 50px;
+  min-height: 0px;
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
@@ -3736,7 +3736,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-brand {
   float: left;
-  padding: 15px 15px;
+  padding: 1px 18pxpx;
   font-size: 18px;
   line-height: 20px;
   height: 50px;
@@ -4363,10 +4363,11 @@ a.list-group-item.active > .badge,
   margin-left: 3px;
 }
 .jumbotron {
-  padding: 30px;
+  margin-top: 50px;
+  padding: 10px;
   margin-bottom: 30px;
   color: inherit;
-  background-color: #0d747c;
+  background-color: #f39c12;
 }
 .jumbotron h1,
 .jumbotron .h1 {
@@ -4378,7 +4379,7 @@ a.list-group-item.active > .badge,
   font-weight: 200;
 }
 .container .jumbotron {
-  border-radius: 6px;
+  border-radius: 0px;
 }
 .jumbotron .container {
   max-width: 100%;
@@ -4389,12 +4390,12 @@ a.list-group-item.active > .badge,
     padding-bottom: 48px;
   }
   .container .jumbotron {
-    padding-left: 60px;
-    padding-right: 60px;
+    padding-left: 50px;
+    padding-right: 50px;
   }
   .jumbotron h1,
   .jumbotron .h1 {
-    font-size: 63px;
+    font-size: 33px;
   }
 }
 .thumbnail {
