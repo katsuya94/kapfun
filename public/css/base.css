@@ -12,13 +12,15 @@ body {
 	font-size: 12pt;
 }
 .kapfun-highlight {
-	max-height: 381px;
-	overflow: hidden;
+}
+
+.kapfun-thumbnail {
 }
 
 #kapfun-gallery div {
-	padding: 1pt;
+	padding: 1px;
 	margin: 0;
+	overflow: hidden;
 }
 
 #kapfun-gallery div img {
