@@ -12,8 +12,8 @@ body {
 	font-size: 12pt;
 }
 .kapfun-highlight {
-	min-height: 381px;
 	max-height: 381px;
+	overflow: hidden;
 }
 
 #kapfun-gallery div {
@@ -23,11 +23,6 @@ body {
 
 #kapfun-gallery div img {
 	width: 100%;
-}
-
-.kapfun-gallery {
-	min-height: 127px;
-	max-height: 127px;
 }
 
 #kapfun-brand {
