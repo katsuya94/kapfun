@@ -2,3 +2,24 @@
 	font-family: komikax;
 	src: url('../fonts/komikax.ttf') format('truetype');
 }
+
+#kapfun-highlight {
+	padding: 1pt;
+	margin: 0;
+}
+
+#kapfun-highlight a img {
+	width: 100%;
+}
+
+#kapfun-gallery {
+	padding: 0;
+}
+
+#kapfun-gallery div {
+	padding: 1pt;
+}
+
+#kapfun-gallery div a img {
+	width: 100%;
+}
