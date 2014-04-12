@@ -34,43 +34,6 @@
 		}
 		work(1)();
 
-		// var populateShares = function(caption, callback) {
-		// 	captionCount++;
-		// 	for(var i = 0; i < captionCount; i++)
-		// 		k.shareCaption(caption);
-		// 	callback();
-		// }
-
-		// var populateCaptions = function(image, callback) {
-		// 	k.addCaption(image, 'text' + captionCount, [], function(i) {
-		// 		populateShares(i, function() {
-		// 			k.addCaption(image, 'text' + captionCount, [], function(j) {
-		// 				populateShares(j, function() {
-		// 					k.addCaption(image, 'text' + captionCount, [], function(k) {
-		// 						populateShares(k, function() {
-		// 							callback();
-		// 						});
-		// 					});
-		// 				});
-		// 			});
-		// 		});
-		// 	});
-		// };
-
-		// k.reset(function() {
-		// 	k.addImage('url0', function(i) {
-		// 		populateCaptions(i, function() {
-		// 			k.addImage('url1', function(j) {
-		// 				populateCaptions(j, function() {
-		// 					k.addImage('url2', function(k) {
-		// 						populateCaptions(k, function() {});
-		// 					});
-		// 				});
-		// 			});
-		// 		});
-		// 	});
-		// });
-
 		$('#file').on('change', function(event) {
 			files = event.target.files;
 		});
