@@ -15,10 +15,11 @@ function _kapfun() {
 
 	object.prototype.addImage = function(url, callback) {
 		callback = callback || empty;
-		var ref = images.push();
-		ref.set({ url: url, shares: 0 }, function() {
-			callback(ref);
+		var image = images.push();
+		image.set({ url: url, shares: 0 }, function() {
+			callback(image);
 		});
+		return image;
 	};
 
 	object.prototype.addCaption = function(image, text, tags, callback) {
@@ -29,7 +30,8 @@ function _kapfun() {
 			var ref1 = caption.child('tags').set(tags.join(','), function() {
 				callback(caption);
 			});
-		})
+		});
+		return caption;
 	};
 
 	object.prototype.shareCaption = function(caption, callback) {
