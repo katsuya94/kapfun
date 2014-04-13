@@ -65,6 +65,19 @@ function _kapfun() {
 		});
 	};
 
+	object.prototype.getCaptionWithImage = function(id, callback) {
+		var caption = captions.child(id);
+		caption.on('value', function(s) {
+			var r = s.val();
+			r.name = s.name();
+			images.child(r.image_id).on('value', function(t) {
+				r.image = t.val();
+				r.image.name = t.name();
+				callback(r);
+			});
+		});
+	};
+
 	object.prototype.getCaptionRef = function(id) {
 		return captions.child(id);
 	};
@@ -95,6 +108,14 @@ function _kapfun() {
 				r.image.name = t.name();
 				callback(r);
 			});
+		});
+	};
+
+	object.prototype.mapCaptions = function(limit, callback) {
+		captions.endAt().limit(limit).on('child_added', function(s) {
+			var r = s.val();
+			r.name = s.name();
+			callback(r);
 		});
 	};
 

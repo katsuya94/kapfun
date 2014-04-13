@@ -35,80 +35,18 @@
 	var k = new kapfun();
 
 	$(function() {
-		var pos = 0;
-		var first = true;
-		var loadVC = function(e) {
-			k.getCaption(e.target.name, function(caption) {
-				$('#modal-caption').val(caption.text);
-				k.getImage(caption.image_id, function(image) {
-					$('#view-caption .modal-body .big-img').html('<img src="' + image.url + '" />');
-				});
-			});
-		}
-		$('body').loadTemplate('base.html', {
-			main: $('#content').html()
+		k.getCaptionWithImage($.url().param('id'), function(caption) {
+			$('#big-img').html('<img src="' + caption.image.url + '" />');
+			$('#big-text').html(caption.text);
 		});
-		
-		k.mapCaptionsWithImages(50, function(caption) {
-			if (first) {
-				$('#highlight').append('<div><a href="#" data-toggle="modal" data-target="#view-caption"><img src="' + caption.image.url + '" name="' + caption.name + '" /></a></div>');
-				first = false;
-				return;
-			}
-			$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#view-caption"><img src="' + caption.image.url + '" name="' + caption.name + '" /></a></div>');
-			pos = (pos + 1) % 4;
-			$('#kapfun-gallery div a').click(loadVC);
-		})
 	});
 	</script>
 </head>
 
 <body>
 	<div id="content" style="display: none;">
-		<!-- Modal -->
-		<div class="modal fade" id="view-caption" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Image</h4>
-					</div>
-					<div class="modal-body">
-						<div class="big-img"></div>
-						<span id="modal-caption"></span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<script>
-		$(function() {
-			$('#caption-form').on('submit', function(event) {
-				event.stopPropagation();
-				event.preventDefault();
-
-				if ($('#caption-img-id').val().length == undefined || $('#caption-text').val() == '') {
-					modalError();
-					return;
-				}
-
-				k.addCaption(k.getImageRef($('#caption-img-id').val()),
-					$('#caption-text').val(),
-					[],
-					function(c) {
-						window.location = 'caption.html?id=' + c.name();
-					}
-				);
-			});
-		});
-		</script>
-		<h1>PEOPLES' CHOICE</h1>
-		<div id="kapfun-gallery">
-			<div id="highlight" class="col-xs-12 col-md-6"></div>
-			<div class="col-xs-12 col-sm-6 col-md-3" id="column-0"></div>
-			<div class="col-xs-12 col-sm-6 col-md-3" id="column-1"></div>
-			<div class="col-xs-12 col-sm-6 col-md-3" id="column-2"></div>
-			<div class="col-xs-12 col-sm-6 col-md-3" id="column-3"></div>
-		</div>
+		<div id="big-img"></div>
+		<div id="big-text"></div>
 	</div>
 </body>
 </html>
