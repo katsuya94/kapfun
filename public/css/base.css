@@ -104,13 +104,16 @@ body {
 }
 
 #kapfun-gallery div {
-	padding: 1px;
+	box-sizing: border-box;
+	border: 1px solid #f39c12;
+	padding: 0;
 	margin: 0;
 	overflow: hidden;
+	height: 127px;
 }
 
 #kapfun-gallery div img {
-	width: 100%;
+	width: 100%; 
 }
 
 #kapfun-brand {

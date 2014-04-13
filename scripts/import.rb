@@ -11,11 +11,10 @@ root = Nokogiri::HTML(open(basename + '/search'))
 
 root.css('a.trending_tag').each do |category|
 	node = Nokogiri::HTML(open(basename + URI.escape(category['href'])))
-	node.css('.post div.post_controls a.click_glass').each do |post|
-		node = Nokogiri::HTML(open(post['href']))
-		node.xpath("//meta[@property='og:image']/@content").each do |src|
-			fb.push("images", { :url => src, :shares => 0 })
-		end
+	node.css('.post').each do |post|
+		link = post.css('.click_glass')[0]
+		node = Nokogiri::HTML(open(link['href'])) if link
+		src = node.xpath("//meta[@property='og:image' and not(contains(@content, 'assets.tumblr.com'))]/@content").to_a.sample
+		fb.push("images", { :url => src, :shares => 0 }) if src
 	end
 end
-

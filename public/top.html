@@ -27,18 +27,25 @@
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 		<script src="js/jquery.loadTemplate-1.4.3.js"></script>
+
+		<script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
+		<script src="js/schema.js"></script>
 		<script>
 		$(function() {
 			$('body').loadTemplate('base.html', {
 				main: $('#content').html()
 			});
+			var k = new kapfun();
+			k.mapImages(function(image) {
+				$('#kapfun-gallery').append('<div class="col-xs-6 col-sm-3"><a href="#"><img src="' + image.url + '" /></a></div>');
+			})
 		});
 		</script>
 	</head>
 
 	<body>
 	<div id="content" style="display: none;">
-		<h1 style="font-family: komikax; padding: 12pt; text-align: center; margin: 0">TOP TRENDING</h1>
+		<h1 style="font-family: komikax; padding: 12pt; text-align: center; margin: 0">TRENDING IMAGES</h1>
 		<div class="row" id="kapfun-gallery">
 		</div>
 	</div>

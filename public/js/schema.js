@@ -60,6 +60,12 @@ function _kapfun() {
 		});
 	};
 
+	object.prototype.mapImages = function(callback) {
+		images.on('child_added', function(s) {
+			callback(s.val());
+		});
+	};
+
 	var applyCaptionImage = function(caption, callback) {
 		callback = callback || empty;
 		caption.child('image_id').on('value', function(s) {
