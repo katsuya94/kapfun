@@ -20,6 +20,58 @@
 		</div>
 	</div>
 </div>
+<script>
+$(function() {
+	var files;
+
+	$('#upload-file').on('change', function(event) {
+		files = event.target.files;
+	});
+
+	var success = function(result) {
+		k.addImage(result.data.link);
+		$('#upload').modal('hide');
+	}
+
+	$('#upload-form').on('submit', function(event) {
+		event.stopPropagation();
+		event.preventDefault();
+
+		if($('#upload-url').val().length) {
+			$.ajax({
+				url: 'https://api.imgur.com/3/image',
+				method: 'POST',
+				cache: false,
+				headers: {
+					Authorization: 'Client-ID 5b607a26ccbd041',
+				},
+				data: {
+					image: $('#upload-url').val()
+				},
+				success: success
+			});
+		} else if (files) {
+			var data = new FormData();
+			data.append('image', files[0]);
+
+			$.ajax({
+				url: 'https://api.imgur.com/3/image',
+				method: 'POST',
+				cache: false,
+				contentType: false,
+				processData: false,
+				headers: {
+					Authorization: 'Client-ID 5b607a26ccbd041',
+				},
+				data: data,
+				success: success
+			});
+		} else {
+			modalError();
+		}
+	});
+});
+</script>
 <!-- Modal -->
 <div class="modal fade" id="create-caption" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -84,7 +136,12 @@
 	</div>
 </div>
 <div class="container" id="kapfun-footer">
+<<<<<<< HEAD
 	<a href="index.html">Home</a> | <a href="#">About</a> | <a href="#">Contact</a> | &copy; Adrien Katsuya Tateno and Faique Moqeet 2014. Powered by <a href="https://www.firebase.com/">Firebase</a>.
 </div>
 
 <script src="js/schema.js"></script>
+=======
+	<a href="index.html">Home</a> | <a href="#">About</a> | <a href="#">Contact</a> | &copy; Adrien Katsuya Tateno and Faique Moqeet 2014. Powered by <a href="https://www.firebase.com/">Firebase</a>
+</div>
+>>>>>>> parent of a067814... Added purl.js front page does stuff
