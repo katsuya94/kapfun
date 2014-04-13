@@ -27,6 +27,7 @@
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<script src="js/jquery.loadTemplate-1.4.3.js"></script>
+	<script src="js/purl.js"></script>
 
 	<script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
 	<script src="js/schema.js"></script>
@@ -35,6 +36,7 @@
 
 	$(function() {
 		var pos = 0;
+		var first = true;
 		var loadVC = function(e) {
 			k.getCaption(e.target.name, function(caption) {
 				$('#modal-caption').val(caption.text);
@@ -48,7 +50,12 @@
 		});
 		
 		k.mapCaptionsWithImages(50, function(caption) {
-			$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#view-caption"><img src="' + caption.image.url + '" name="' + caption.name + '" /></a></div>')
+			if (first) {
+				$('#highlight').append('<div><a href="#" data-toggle="modal" data-target="#view-caption"><img src="' + caption.image.url + '" name="' + caption.name + '" /></a></div>');
+				first = false;
+				return;
+			}
+			$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#view-caption"><img src="' + caption.image.url + '" name="' + caption.name + '" /></a></div>');
 			pos = (pos + 1) % 4;
 			$('#kapfun-gallery div a').click(loadVC);
 		})
@@ -96,31 +103,11 @@
 	</script>
 	<h1>PEOPLES' CHOICE</h1>
 	<div id="kapfun-gallery">
-		<div>
-			<div class="col-xs-12 col-md-6">
-				<a><img src="img/pImage.png"></a>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-6 col-md-3" id="column-0">
-			<div>
-				<a href="#"><img src="img/pImage.png"></a>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-6 col-md-3" id="column-1">
-			<div>
-				<a href="#"><img src="img/pImage.png"></a>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-6 col-md-3" id="column-2">
-			<div>
-				<a href="#"><img src="img/pImage.png"></a>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-6 col-md-3" id="column-3">
-			<div>
-				<a href="#"><img src="img/pImage.png"></a>
-			</div>
-		</div>
+		<div id="highlight" class="col-xs-12 col-md-6"></div>
+		<div class="col-xs-12 col-sm-6 col-md-3" id="column-0"></div>
+		<div class="col-xs-12 col-sm-6 col-md-3" id="column-1"></div>
+		<div class="col-xs-12 col-sm-6 col-md-3" id="column-2"></div>
+		<div class="col-xs-12 col-sm-6 col-md-3" id="column-3"></div>
 	</div>
 </div>
 </body>
