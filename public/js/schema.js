@@ -72,8 +72,8 @@ function _kapfun() {
 		});
 	};
 
-	object.prototype.mapImages = function(callback) {
-		images.on('child_added', function(s) {
+	object.prototype.mapImages = function(limit, callback) {
+		images.endAt().limit(limit).on('child_added', function(s) {
 			var r = s.val();
 			r.name = s.name();
 			callback(r);

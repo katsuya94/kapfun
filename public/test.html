@@ -6,8 +6,7 @@
 	<script type='text/javascript' src='js/schema.js'></script>
 	<script type='text/javascript'>
 	$(function() {
-		var files;
-		k = new kapfun();
+		
 
 		var captionCount = 0;
 
@@ -33,51 +32,7 @@
 		}
 		work(1)();
 
-		$('#file').on('change', function(event) {
-			files = event.target.files;
-		});
-
-		function success(result) {
-			k.addImage('https://imgur.com/gallery/' + result.data.id);
-		}
-
-		$('#form').on('submit', function(event) {
-			event.stopPropagation();
-			event.preventDefault();
-
-			if($('#url').val().length) {
-				$.ajax({
-					url: 'https://api.imgur.com/3/image',
-					method: 'POST',
-					cache: false,
-					headers: {
-						Authorization: 'Client-ID 5b607a26ccbd041',
-					},
-					data: {
-						image: $('#url').val()
-					},
-					success: success
-				});
-			} else {
-				var data = new FormData();
-				data.append('image', files[0]);
-
-				console.log(data);
-
-				$.ajax({
-					url: 'https://api.imgur.com/3/image',
-					method: 'POST',
-					cache: false,
-					contentType: false,
-					processData: false,
-					headers: {
-						Authorization: 'Client-ID 5b607a26ccbd041',
-					},
-					data: data,
-					success: success
-				});
-			}
-		});
+		
 	});
 	</script>
 </head>

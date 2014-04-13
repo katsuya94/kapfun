@@ -4,7 +4,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				<h4 class="modal-title">Image</h4>
 			</div>
 			<div class="modal-body">
 				<div class="big-img"></div>
@@ -22,6 +22,78 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content modal-sm">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Submit an image</h4>
+			</div>
+			<div class="modal-body">
+				<form id="upload-form" class="form" role="form" action="" method="post" enctype="multipart/form-data">
+					<div class="form-group" style="overflow: hidden;">
+						<input id="upload-file" type="file" class="form-control" name="image"/>
+					</div>
+					<div class="form-group">
+						<input id="upload-url" type="url" name="image" class="form-control" placeholder="Image URL..." />
+					</div>
+					<input type="submit" class="btn btn-primary" value="Submit" />
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<script>
+$(function() {
+	var files;
+
+	$('#upload-file').on('change', function(event) {
+		files = event.target.files;
+	});
+
+	var success = function(result) {
+		k.addImage(result.data.link);
+	}
+
+	$('#upload-form').on('submit', function(event) {
+		event.stopPropagation();
+		event.preventDefault();
+
+		if($('#upload-url').val().length) {
+			$.ajax({
+				url: 'https://api.imgur.com/3/image',
+				method: 'POST',
+				cache: false,
+				headers: {
+					Authorization: 'Client-ID 5b607a26ccbd041',
+				},
+				data: {
+					image: $('#upload-url').val()
+				},
+				success: success
+			});
+		} else {
+			var data = new FormData();
+			data.append('image', files[0]);
+
+			$.ajax({
+				url: 'https://api.imgur.com/3/image',
+				method: 'POST',
+				cache: false,
+				contentType: false,
+				processData: false,
+				headers: {
+					Authorization: 'Client-ID 5b607a26ccbd041',
+				},
+				data: data,
+				success: success
+			});
+		}
+	});
+});
+</script>
 
 <nav class="navbar navbar-default navbar-static-top" role="navigation">
 	<div class="container-fluid">
@@ -43,7 +115,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="index.html">Home</a></li>
 				<li><a href="top.html">Trending</a></li>
-				<li><a href="submit.html">Submit</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#upload">Submit</a></li>
 				<li><a href="#">About Kapfun</a></li>
 			</ul>
 			<form class="navbar-form navbar-right">

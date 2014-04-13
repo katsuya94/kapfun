@@ -31,6 +31,8 @@
 		<script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
 		<script src="js/schema.js"></script>
 		<script>
+		var k = new kapfun();
+
 		$(function() {
 			var pos = 0;
 			var loadBig = function(e) {
@@ -41,8 +43,8 @@
 			$('body').loadTemplate('base.html', {
 				main: $('#content').html()
 			});
-			var k = new kapfun();
-			k.mapImages(function(image) {
+			
+			k.mapImages(50, function(image) {
 				$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#big"><img src="' + image.url + '" name="' + image.name + '" /></a></div>')
 				pos = (pos + 1) % 4;
 				$('#kapfun-gallery div a').click(loadBig);

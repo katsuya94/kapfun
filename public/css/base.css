@@ -13,6 +13,10 @@ body {
 	color: #ffffff;
 }
 
+.modal div {
+	color: #555;
+}
+
 .navbar-default {
 	background-color: #ad1d28;
 	border-color: #911821;
