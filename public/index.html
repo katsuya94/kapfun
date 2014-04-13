@@ -5,8 +5,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<title>Kapfun: The Internet's Kaption Kontest</title>
-	<link rel="icon" type="image/ico" href="https://resplendent-fire-732.firebaseapp.com/favicon.ico" />
+	<title>kapfun: the internet's kaption kontest</title>
+	<link rel="icon" type="image/ico" href="favicon.ico" />
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" type="text/css" />
@@ -31,6 +31,8 @@
 	<script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
 	<script src="js/schema.js"></script>
 	<script>
+	var k = new kapfun();
+
 	$(function() {
 		var pos = 0;
 		var loadVC = function(e) {
@@ -55,29 +57,20 @@
 </head>
 
 <body>
-	<div id="content" style="display: none;">
-		<!-- Modal -->
-		<div class="modal fade" id="view-caption" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Image</h4>
-					</div>
-					<div class="modal-body">
-						<div class="big-img"></div>
-						<span id="modal-caption"></span>
-					</div>
+<div id="content" style="display: none;">
+	<!-- Modal -->
+	<div class="modal fade" id="view-caption" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Image</h4>
+				</div>
+				<div class="modal-body">
+					<div class="big-img"></div>
+					<span id="modal-caption"></span>
 				</div>
 			</div>
-		</div>
-		<h1>PEOPLES' CHOICE</h1>
-		<div id="kapfun-gallery">
-			<div id="highlight" class="col-xs-12 col-md-6"></div>
-			<div class="col-xs-12 col-sm-6 col-md-3" id="column-0"></div>
-			<div class="col-xs-12 col-sm-6 col-md-3" id="column-1"></div>
-			<div class="col-xs-12 col-sm-6 col-md-3" id="column-2"></div>
-			<div class="col-xs-12 col-sm-6 col-md-3" id="column-3"></div>
 		</div>
 	</div>
 	<script>
