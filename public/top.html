@@ -1,59 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<title>kapfun: the internet's kaption kontest</title>
-		<link rel="icon" type="image/ico" href="favicon.ico" />
+	<title>kapfun: the internet's kaption kontest</title>
+	<link rel="icon" type="image/ico" href="favicon.ico" />
 
-		<!-- Bootstrap -->
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" type="text/css" />
-		<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" rel="stylesheet" />
-		<link href="css/bootstrap-social.css" rel="stylesheet" type="text/css" />
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" type="text/css" />
+	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" rel="stylesheet" />
+	<link href="css/bootstrap-social.css" rel="stylesheet" type="text/css" />
 
-		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
 
-		<link href="css/base.css" rel="stylesheet" type="text/css" />
+	<link href="css/base.css" rel="stylesheet" type="text/css" />
 
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-		<script src="js/jquery.loadTemplate-1.4.3.js"></script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="js/jquery.loadTemplate-1.4.3.js"></script>
 
-		<script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
-		<script src="js/schema.js"></script>
-		<script>
-		var k = new kapfun();
+	<script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
+	<script src="js/schema.js"></script>
+	<script>
+	var k = new kapfun();
 
-		$(function() {
-			var pos = 0;
-			var loadBig = function(e) {
-				k.getImage(e.target.name, function(image) {
-					$('#big .modal-body .big-img').html('<img src="' + image.url + '" />');
-				});
-			}
-			$('body').loadTemplate('base.html', {
-				main: $('#content').html()
+	$(function() {
+		var pos = 0;
+		var loadBig = function(e) {
+			k.getImage(e.target.name, function(image) {
+				$('#big .modal-body .big-img').html('<img src="' + image.url + '" />');
 			});
-			
-			k.mapImages(50, function(image) {
-				$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#big"><img src="' + image.url + '" name="' + image.name + '" /></a></div>')
-				pos = (pos + 1) % 4;
-				$('#kapfun-gallery div a').click(loadBig);
-			})
+		}
+		$('body').loadTemplate('base.html', {
+			main: $('#content').html()
 		});
-		</script>
-	</head>
-
-	<body>
+		
+		k.mapImages(50, function(image) {
+			$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#big"><img src="' + image.url + '" name="' + image.name + '" /></a></div>')
+			pos = (pos + 1) % 4;
+			$('#kapfun-gallery div a').click(loadBig);
+		})
+	});
+	</script>
+</head>
+<body>
+	<!-- Modal -->
+	<div class="modal fade" id="big" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Image</h4>
+				</div>
+				<div class="modal-body">
+					<div class="big-img"></div>
+				</div>
+				<div class="modal-footer">
+					<form class="form-inline" role="form" style="text-align: right;">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Caption..." />
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-primary" value="Submit" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="content" style="display: none;">
 		<h1>TRENDING IMAGES</h1>
 		<div id="kapfun-gallery">
@@ -67,5 +90,5 @@
 			</div>
 		</div>
 	</div>
-	</body>
+</body>
 </html>
