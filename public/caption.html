@@ -35,9 +35,15 @@
 	var k = new kapfun();
 
 	$(function() {
+		$('body').loadTemplate('base.html', {
+			main: $('#content').html()
+		});
+		
 		k.getCaptionWithImage($.url().param('id'), function(caption) {
 			$('#big-img').html('<img src="' + caption.image.url + '" />');
 			$('#big-text').html(caption.text);
+			$('#big-url').html(caption.image.url);
+			$('.imglink').attr('href', caption.image.url);
 		});
 	});
 	</script>
@@ -45,8 +51,14 @@
 
 <body>
 	<div id="content" style="display: none;">
-		<div id="big-img"></div>
-		<div id="big-text"></div>
+		<a class="imglink"><h1 id="big-url"></h1></a>
+		<div class="col-xs-12 col-sm-6">
+			<a class="imglink"><div id="big-img"></div></a>
+			<h2 id="big-text" style="margin: 0"></h2>
+		</div>
+		<div id="comments" class="col-xs-12 col-sm-6">
+			Comments coming soon...
+		</div>
 	</div>
 </body>
 </html>

@@ -46,9 +46,8 @@
 		});
 		
 		k.mapImages(50, function(image) {
-			$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#create-caption"><img src="' + image.url + '" name="' + image.name + '" /></a></div>')
+			$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#create-caption"><img src="' + image.url + '" name="' + image.name + '" /></a></div>').click(loadCC);
 			pos = (pos + 1) % 4;
-			$('#kapfun-gallery div a').click(loadCC);
 		})
 	});
 	</script>
@@ -56,7 +55,7 @@
 <body>
 	<div id="content" style="display: none;">
 		<h1>TRENDING IMAGES</h1>
-		<div id="kapfun-gallery">
+		<div id="kapfun-gallery2">
 			<div class="col-xs-12 col-sm-6 col-md-3" id="column-0">
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-3" id="column-1">

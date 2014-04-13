@@ -38,7 +38,8 @@
 		var first = true;
 		var loadVC = function(e) {
 			k.getCaption(e.target.name, function(caption) {
-				$('#modal-caption').val(caption.text);
+				$('#modal-caption').html(caption.text);
+				$('#view-caption input').val('https://resplendent-fire-732.firebaseapp.com/caption.html?id=' + caption.name)
 				k.getImage(caption.image_id, function(image) {
 					$('#view-caption .modal-body .big-img').html('<img src="' + image.url + '" />');
 				});
@@ -50,13 +51,12 @@
 
 		k.mapCaptionsWithImages(50, function(caption) {
 			if (first) {
-				$('#highlight').append('<div><a href="#" data-toggle="modal" data-target="#view-caption"><img src="' + caption.image.url + '" name="' + caption.name + '" /></a></div>');
+				$('#highlight').append('<div><a href="#" data-toggle="modal" data-target="#view-caption"><img src="' + caption.image.url + '" name="' + caption.name + '" /></a></div>').click(loadVC);
 				first = false;
 				return;
 			}
-			$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#view-caption"><img src="' + caption.image.url + '" name="' + caption.name + '" /></a></div>');
+			$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#view-caption"><img src="' + caption.image.url + '" name="' + caption.name + '" /></a></div>').click(loadVC);
 			pos = (pos + 1) % 4;
-			$('#kapfun-gallery div a').click(loadVC);
 		})
 	});
 	</script>
@@ -74,7 +74,15 @@
 				</div>
 				<div class="modal-body">
 					<div class="big-img"></div>
-					<span id="modal-caption"></span>
+					<div style="padding: 10pt;">
+						<h3 id="modal-caption"></h3>
+						<form class="form-horizontal">
+							<div class="form-group" style="width: 100%;"><input type="text" class="form-control" style="width: 100%;" /></div>
+							<a href="" class="btn btn-social-icon btn-facebook" role="button"><i class="fa fa-facebook"></i></a>
+							<a href="" class="btn btn-social-icon btn-twitter" role="button"><i class="fa fa-twitter"></i></a>
+							<a href="" class="btn btn-social-icon btn-tumblr" role="button"><i class="fa fa-tumblr"></i></a>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -101,12 +109,16 @@
 	});
 	</script>
 	<h1>PEOPLES' CHOICE</h1>
-	<div id="kapfun-gallery">
-		<div id="highlight" class="col-xs-12 col-md-6"></div>
-		<div class="col-xs-12 col-sm-6 col-md-3" id="column-0"></div>
-		<div class="col-xs-12 col-sm-6 col-md-3" id="column-1"></div>
-		<div class="col-xs-12 col-sm-6 col-md-3" id="column-2"></div>
-		<div class="col-xs-12 col-sm-6 col-md-3" id="column-3"></div>
+	<div id="kapfun-gallery1">
+		<div class="col-xs-12 col-sm-6">
+			<div id="highlight" class="col-xs-12"></div>
+			<div class="col-xs-12 col-sm-6" id="column-0"></div>
+			<div class="col-xs-12 col-sm-6" id="column-1"></div>
+		</div>
+		<div class="col-xs-12 col-sm-6">
+			<div class="col-xs-12 col-sm-6" id="column-2"></div>
+			<div class="col-xs-12 col-sm-6" id="column-3"></div>
+		</div>
 	</div>
 </div>
 </body>

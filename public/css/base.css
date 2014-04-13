@@ -13,6 +13,10 @@ body {
 	color: #ffffff;
 }
 
+#big-url a:hover {
+	text-decoration: none;
+}
+
 .modal div {
 	color: #555;
 }
@@ -101,17 +105,17 @@ body {
 	color: #ffffff;
 }
 
-#kapfun-gallery div {
+#kapfun-gallery1 div, #kapfun-gallery1 div div, #kapfun-gallery2 div {
 	padding: 0;
 	margin: 0;
 }
 
-#kapfun-gallery div div {
+#kapfun-gallery1 div div div, #kapfun-gallery2 div div {
 	padding: 2px;
 	margin: 0;
 }
 
-#kapfun-gallery div a img {
+#kapfun-gallery1 div div div a img, #kapfun-gallery2 div div a img {
 	width: 100%; 
 }
 
@@ -155,4 +159,23 @@ body {
 
 .modal-body img {
 	width: 100%;
+}
+
+#big-img img {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#big-text {
+	padding: 10pt;
+	background-color: black;
+}
+
+#big-url {
+	text-overflow: ellipsis;
+}
+
+#comments {
+	padding: 20pt;
 }
