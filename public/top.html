@@ -30,10 +30,7 @@
 	<script src="js/purl.js"></script>
 
 	<script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
-	<script src="js/schema.js"></script>
 	<script>
-	var k = new kapfun();
-
 	$(function() {
 		var pos = 0;
 		var loadCC = function(e) {
@@ -41,16 +38,18 @@
 				$('#create-caption .modal-body .big-img').html('<img src="' + image.url + '" />');
 				$('#caption-img-id').val(e.target.name);
 			});
-		}
+		};
 		$('body').loadTemplate('base.html', {
 			main: $('#content').html()
 		});
-		
+
 		k.mapImages(50, function(image) {
 			$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#create-caption"><img src="' + image.url + '" name="' + image.name + '" /></a></div>')
 			pos = (pos + 1) % 4;
 			$('#kapfun-gallery div a').click(loadCC);
-		})
+		});
+
+		window.alert('hi');
 	});
 	</script>
 </head>

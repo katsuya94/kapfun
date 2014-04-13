@@ -20,62 +20,6 @@
 		</div>
 	</div>
 </div>
-<script>
-$(function() {
-	var files;
-
-	$('#upload-file').on('change', function(event) {
-		files = event.target.files;
-	});
-
-	var success = function(result) {
-		k.addImage(result.data.link, function(image) {
-			$('.modal').modal('hide');
-			window.location = 'image.html?id=' + image.name();
-		});
-	}
-
-	$('#upload-form').on('submit', function(event) {
-		event.stopPropagation();
-		event.preventDefault();
-
-		if($('#upload-url').val().length) {
-			$.ajax({
-				url: 'https://api.imgur.com/3/image',
-				method: 'POST',
-				cache: false,
-				headers: {
-					Authorization: 'Client-ID 5b607a26ccbd041',
-				},
-				data: {
-					image: $('#upload-url').val()
-				},
-				success: success
-				error: modalError
-			});
-		} else if (files) {
-			var data = new FormData();
-			data.append('image', files[0]);
-
-			$.ajax({
-				url: 'https://api.imgur.com/3/image',
-				method: 'POST',
-				cache: false,
-				contentType: false,
-				processData: false,
-				headers: {
-					Authorization: 'Client-ID 5b607a26ccbd041',
-				},
-				data: data,
-				success: success
-				error: modalError
-			});
-		} else {
-			modalError();
-		}
-	});
-});
-</script>
 <!-- Modal -->
 <div class="modal fade" id="create-caption" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -99,27 +43,6 @@ $(function() {
 		</div>
 	</div>
 </div>
-<script>
-$(function() {
-	$('#caption-form').on('submit', function(event) {
-		event.stopPropagation();
-		event.preventDefault();
-
-		if ($('#caption-img-id').val().length == undefined || $('#caption-text').val() == '') {
-			modalError();
-			return;
-		}
-
-		k.addCaption(k.getImageRef($('#caption-img-id').val()),
-			$('#caption-text').val(),
-			[],
-			function(c) {
-				window.location = 'caption.html?id=' + c.name();
-			}
-		);
-	});
-});
-</script>
 
 <nav class="navbar navbar-default navbar-static-top" role="navigation">
 	<div class="container-fluid">
@@ -163,3 +86,5 @@ $(function() {
 <div class="container" id="kapfun-footer">
 	<a href="index.html">Home</a> | <a href="#">About</a> | <a href="#">Contact</a> | &copy; Adrien Katsuya Tateno and Faique Moqeet 2014. Powered by <a href="https://www.firebase.com/">Firebase</a>.
 </div>
+
+<script src="js/schema.js"></script>

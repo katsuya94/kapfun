@@ -150,7 +150,85 @@ function _kapfun() {
 }
 var kapfun = _kapfun();
 
-function modalError() {
+var k = new kapfun();
+
+var modalError = function() {
 	$('#alerts').append('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Invalid submission.</div>');
 	$('.modal').modal('hide');
 }
+
+$(function() {
+
+	$('#caption-form').on('submit', function(event) {
+		event.stopPropagation();
+		event.preventDefault();
+
+		if ($('#caption-img-id').val().length === undefined || $('#caption-text').val() === '') {
+			modalError();
+			return;
+		}
+
+		k.addCaption(k.getImageRef($('#caption-img-id').val()),
+			$('#caption-text').val(),
+			[],
+			function(c) {
+				window.location = 'caption.html?id=' + c.name();
+			}
+		);
+	});
+
+	var files;
+
+	$('#upload-file').on('change', function(event) {
+		files = event.target.files;
+	});
+
+	var success = function(result) {
+		k.addImage(result.data.link, function(image) {
+			$('.modal').modal('hide');
+			window.location = 'image.html?id=' + image.name();
+		});
+	};
+
+	$('#upload-form').on('submit', function(event) {
+		event.stopPropagation();
+		event.preventDefault();
+
+		if($('#upload-url').val().length) {
+			$.ajax({
+				url: 'https://api.imgur.com/3/image',
+				method: 'POST',
+				cache: false,
+				headers: {
+					Authorization: 'Client-ID 5b607a26ccbd041',
+				},
+				data: {
+					image: $('#upload-url').val()
+				},
+				success: success,
+				error: modalError
+			});
+		} else if (files) {
+			var data = new FormData();
+			data.append('image', files[0]);
+
+			$.ajax({
+				url: 'https://api.imgur.com/3/image',
+				method: 'POST',
+				cache: false,
+				contentType: false,
+				processData: false,
+				headers: {
+					Authorization: 'Client-ID 5b607a26ccbd041',
+				},
+				data: data,
+				success: success,
+				error: modalError
+			});
+		} else {
+			modalError();
+		}
+	});
+
+	window.alert('hi');
+});

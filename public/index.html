@@ -32,8 +32,6 @@
 	<script src='https://cdn.firebase.com/js/client/1.0.11/firebase.js'></script>
 	<script src="js/schema.js"></script>
 	<script>
-	var k = new kapfun();
-
 	$(function() {
 		var pos = 0;
 		var first = true;
@@ -80,27 +78,6 @@
 				</div>
 			</div>
 		</div>
-		<script>
-		$(function() {
-			$('#caption-form').on('submit', function(event) {
-				event.stopPropagation();
-				event.preventDefault();
-
-				if ($('#caption-img-id').val().length == undefined || $('#caption-text').val() == '') {
-					modalError();
-					return;
-				}
-
-				k.addCaption(k.getImageRef($('#caption-img-id').val()),
-					$('#caption-text').val(),
-					[],
-					function(c) {
-						window.location = 'caption.html?id=' + c.name();
-					}
-				);
-			});
-		});
-		</script>
 		<h1>PEOPLES' CHOICE</h1>
 		<div id="kapfun-gallery">
 			<div id="highlight" class="col-xs-12 col-md-6"></div>
