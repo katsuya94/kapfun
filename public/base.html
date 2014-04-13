@@ -72,6 +72,50 @@ $(function() {
 	});
 });
 </script>
+<!-- Modal -->
+<div class="modal fade" id="big" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Image</h4>
+			</div>
+			<div class="modal-body">
+				<div class="big-img"></div>
+			</div>
+			<div class="modal-footer">
+				<form id="caption-form" class="form-inline" role="form">
+					<input id="caption-img-id" type="hidden" />
+					<input style="float: right;" type="submit" class="btn btn-primary" value="Submit" />
+					<div class="form-group col-xs-9" style="float: right;">
+						<input type="text" id="caption-text" class="form-control" placeholder="Caption..." style="width: 100%;" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$(function() {
+	$('#caption-form').on('submit', function(event) {
+		event.stopPropagation();
+		event.preventDefault();
+
+		if ($('#caption-img-id').val().length == undefined || $('#caption-text').val() == '') {
+			modalError();
+			return;
+		}
+
+		k.addCaption(k.getImageRef($('#caption-img-id').val()),
+			$('#caption-text').val(),
+			[],
+			function(c) {
+				window.location = 'caption.html?id=' + c.name();
+			}
+		);
+	});
+});
+</script>
 
 <nav class="navbar navbar-default navbar-static-top" role="navigation">
 	<div class="container-fluid">
@@ -113,5 +157,5 @@ $(function() {
 	</div>
 </div>
 <div class="container" id="kapfun-footer">
-	<a href="index.html">Home</a> | <a href="#">About</a> | <a href="#">Contact</a></p> &copy; Adrien Katsuya Tateno and Faique Moqeet 2014. Powered by <a href="https://www.firebase.com/">Firebase</a>
+	<a href="index.html">Home</a> | <a href="#">About</a> | <a href="#">Contact</a> | &copy; Adrien Katsuya Tateno and Faique Moqeet 2014. Powered by <a href="https://www.firebase.com/">Firebase</a>
 </div>

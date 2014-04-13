@@ -55,50 +55,6 @@
 </head>
 <body>
 	<div id="content" style="display: none;">
-		<!-- Modal -->
-		<div class="modal fade" id="big" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Image</h4>
-					</div>
-					<div class="modal-body">
-						<div class="big-img"></div>
-					</div>
-					<div class="modal-footer">
-						<form id="caption-form" class="form-inline" role="form">
-							<input id="caption-img-id" type="hidden" />
-							<input style="float: right;" type="submit" class="btn btn-primary" value="Submit" />
-							<div class="form-group col-xs-9" style="float: right;">
-								<input type="text" id="caption-text" class="form-control" placeholder="Caption..." style="width: 100%;" />
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<script>
-		$(function() {
-			$('#caption-form').on('submit', function(event) {
-				event.stopPropagation();
-				event.preventDefault();
-
-				if ($('#caption-img-id').val().length == undefined || $('#caption-text').val() == '') {
-					modalError();
-					return;
-				}
-
-				k.addCaption(k.getImageRef($('#caption-img-id').val()),
-					$('#caption-text').val(),
-					[],
-					function(c) {
-						window.location = 'caption.html?id=' + c.name();
-					}
-				);
-			});
-		});
-		</script>
 		<h1>TRENDING IMAGES</h1>
 		<div id="kapfun-gallery">
 			<div class="col-xs-12 col-sm-6 col-md-3" id="column-0">
