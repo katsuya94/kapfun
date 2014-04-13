@@ -172,7 +172,7 @@ body {
 	background-color: black;
 }
 
-#big-url {
+.imglink  {
 	text-overflow: ellipsis;
 }
 

@@ -36,9 +36,18 @@
 	$(function() {
 		var pos = 0;
 		var first = true;
+		var loadCC = function(image) {	
+			$('#create-caption .modal-body .big-img').html('<img src="' + image.url + '" />');
+			$('#caption-img-id').val(image.name);
+		}
 		var loadVC = function(e) {
-			k.getCaption(e.target.name, function(caption) {
+			k.getCaptionWithImage(e.target.name, function(caption) {
 				$('#modal-caption').html(caption.text);
+				$('#make').click(function() {
+					$('#view-caption').modal('hide');
+					loadCC(caption.image);
+					$('#create-caption').modal('show');
+				})
 				$('#view-caption input').val('https://resplendent-fire-732.firebaseapp.com/caption.html?id=' + caption.name)
 				k.getImage(caption.image_id, function(image) {
 					$('#view-caption .modal-body .big-img').html('<img src="' + image.url + '" />');
@@ -51,12 +60,13 @@
 
 		k.mapCaptionsWithImages(50, function(caption) {
 			if (first) {
-				$('#highlight').append('<div><a href="#" data-toggle="modal" data-target="#view-caption"><img src="' + caption.image.url + '" name="' + caption.name + '" /></a></div>').click(loadVC);
+				$('#highlight').append('<div><a href="#" class="gallery-element" data-toggle="modal" data-target="#view-caption"><img src="' + caption.image.url + '" name="' + caption.name + '" /></a></div>');
 				first = false;
-				return;
+			} else {
+				$('#column-' + pos).append('<div><a href="#" class="gallery-element" data-toggle="modal" data-target="#view-caption"><img src="' + caption.image.url + '" name="' + caption.name + '" /></a></div>');
+				pos = (pos + 1) % 4;
 			}
-			$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#view-caption"><img src="' + caption.image.url + '" name="' + caption.name + '" /></a></div>').click(loadVC);
-			pos = (pos + 1) % 4;
+			$('.gallery-element').click(loadVC);
 		})
 	});
 	</script>
@@ -70,17 +80,18 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Image</h4>
+					<h4 class="modal-title">Share</h4>
 				</div>
 				<div class="modal-body">
 					<div class="big-img"></div>
 					<div style="padding: 10pt;">
-						<h3 id="modal-caption"></h3>
+						<h3 id="modal-caption" style="padding: 10pt; margin: 0"></h3>
 						<form class="form-horizontal">
 							<div class="form-group" style="width: 100%;"><input type="text" class="form-control" style="width: 100%;" /></div>
 							<a href="" class="btn btn-social-icon btn-facebook" role="button"><i class="fa fa-facebook"></i></a>
 							<a href="" class="btn btn-social-icon btn-twitter" role="button"><i class="fa fa-twitter"></i></a>
 							<a href="" class="btn btn-social-icon btn-tumblr" role="button"><i class="fa fa-tumblr"></i></a>
+							<a id="make" href="#">Make your own!</a>
 						</form>
 					</div>
 				</div>

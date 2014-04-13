@@ -6,7 +6,6 @@ function _kapfun() {
 	var object = function() {};
 
 	var increment = function(val) {
-		val = val || 0;
 		return val + 1;
 	};
 
@@ -92,10 +91,16 @@ function _kapfun() {
 	};
 
 	object.prototype.mapImages = function(limit, callback) {
-		images.endAt().limit(limit).on('child_added', function(s) {
+		images.limit(limit).on('child_added', function(s) {
 			var r = s.val();
 			r.name = s.name();
 			callback(r);
+		});
+	};
+
+	object.prototype.randomizeImages = function(limit, callback) {
+		images.on('child_added', function(s) {
+			s.ref().setPriority(Math.random());
 		});
 	};
 
@@ -112,7 +117,7 @@ function _kapfun() {
 	};
 
 	object.prototype.mapCaptions = function(limit, callback) {
-		captions.endAt().limit(limit).on('child_added', function(s) {
+		captions.endat().limit(limit).on('child_added', function(s) {
 			var r = s.val();
 			r.name = s.name();
 			callback(r);
@@ -137,7 +142,7 @@ function _kapfun() {
 	object.prototype.updateCaptionIndex = function(callback) {
 		callback = callback || empty;
 		captions.on('child_added', function(s) {
-			s.setPriority(s.val().shares);
+			s.ref().setPriority(s.val().shares);
 		}, callback);
 	};
 
