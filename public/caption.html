@@ -38,12 +38,20 @@
 		$('body').loadTemplate('base.html', {
 			main: $('#content').html()
 		});
-		
+		var loadCC = function(image) {	
+			$('#create-caption .modal-body .big-img').html('<img src="' + image.url + '" />');
+			$('#caption-img-id').val(image.name);
+		}
 		k.getCaptionWithImage($.url().param('id'), function(caption) {
 			$('#big-img').html('<img src="' + caption.image.url + '" />');
 			$('#big-text').html(caption.text);
 			$('#big-url').html(caption.image.url);
 			$('.imglink').attr('href', caption.image.url);
+			$('#make').click(function() {
+				loadCC(caption.image);
+				$('#create-caption').modal('show');
+			})
+			$('#share-url').val('https://resplendent-fire-732.firebaseapp.com/caption.html?id=' + caption.name)
 		});
 	});
 	</script>
@@ -56,8 +64,19 @@
 			<a class="imglink"><div id="big-img"></div></a>
 			<h2 id="big-text" style="margin: 0"></h2>
 		</div>
-		<div id="comments" class="col-xs-12 col-sm-6">
-			Comments coming soon...
+		<div class="col-xs-12 col-sm-6">
+			<div>
+				<form class="form-horizontal">
+					<div class="form-group" style="width: 100%;"><input id="share-url" type="text" class="form-control" style="width: 100%;" /></div>
+					<a href="" class="btn btn-social-icon btn-facebook" role="button"><i class="fa fa-facebook"></i></a>
+					<a href="" class="btn btn-social-icon btn-twitter" role="button"><i class="fa fa-twitter"></i></a>
+					<a href="" class="btn btn-social-icon btn-tumblr" role="button"><i class="fa fa-tumblr"></i></a>
+					<a id="make" href="#">Make your own!</a>
+				</form>
+			</div>
+			<div id="comments">
+				Comments coming soon...
+			</div>
 		</div>
 	</div>
 </body>
