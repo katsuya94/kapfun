@@ -27,7 +27,8 @@ function _kapfun() {
 		var caption = captions.push();
 		tags = tags || [];
 		caption.set({ image_id: image.name(), text: text, shares: 0 }, function() {
-			var ref1 = caption.child('tags').set(tags.join(','), function() {
+			image.child('captions').push(caption.name());
+			caption.child('tags').set(tags.join(','), function() {
 				callback(caption);
 			});
 		});
@@ -50,7 +51,10 @@ function _kapfun() {
 			r.name = s.name();
 			callback(r);
 		});
-		return image;
+	};
+
+	object.prototype.getImageRef = function(id) {
+		return images.child(id);
 	};
 
 	object.prototype.getCaption = function(id, callback) {
@@ -60,7 +64,10 @@ function _kapfun() {
 			r.name = s.name();
 			callback(r);
 		});
-		return caption;
+	};
+
+	object.prototype.getCaptionRef = function(id) {
+		return captions.child(id);
 	};
 
 	object.prototype.mapImageCaptions = function(image, callback) {
@@ -124,3 +131,8 @@ function _kapfun() {
 	return object;
 }
 var kapfun = _kapfun();
+
+function modalError() {
+	$('#alerts').append('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Invalid submission.</div>');
+	$('.modal').modal('hide');
+}
