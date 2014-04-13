@@ -2,7 +2,6 @@ function _kapfun() {
 	var root = new Firebase('https://resplendent-fire-732.firebaseio.com/');
 	var images = root.child('images');
 	var captions = root.child('captions');
-	var captionIndex = root.child('captions_index');
 
 	var object = function() {};
 
@@ -87,6 +86,18 @@ function _kapfun() {
 		});
 	};
 
+	object.prototype.mapCaptionsWithImages = function(limit, callback) {
+		captions.endAt().limit(limit).on('child_added', function(s) {
+			var r = s.val();
+			r.name = s.name();
+			images.child(r.image_id).on('value', function(t) {
+				r.image = t.val();
+				r.image.name = t.name();
+				callback(r);
+			});
+		});
+	};
+
 	var applyCaptionImage = function(caption, callback) {
 		callback = callback || empty;
 		caption.child('image_id').on('value', function(s) {
@@ -94,13 +105,6 @@ function _kapfun() {
 		});
 	};
 	object.prototype.applyCaptionImage = applyCaptionImage;
-
-	object.prototype.mapCaptionTags = function(caption, callback) {
-		callback = callback || empty;
-		caption.child('tags').on('child_added', function(s) {
-			callback(s.val());
-		});
-	};
 
 	object.prototype.mapImageTags = function(image, callback) {
 		callback = callback || empty;
@@ -112,15 +116,8 @@ function _kapfun() {
 	object.prototype.updateCaptionIndex = function(callback) {
 		callback = callback || empty;
 		captions.on('child_added', function(s) {
-			captionIndex.push().setWithPriority({ caption_id: s.name(), timestamp: Date.now() }, s.val().shares, callback);
-		});
-	};
-
-	object.prototype.mapCaptions = function(callback) {
-		callback = callback || empty;
-		captionIndex.on('child_added', function(s) {
-			callback(captions.child(s.val().caption_id).val());
-		});
+			s.setPriority(s.val().shares);
+		}, callback);
 	};
 
 	object.prototype.reset = function(callback) {

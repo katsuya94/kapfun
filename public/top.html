@@ -35,9 +35,9 @@
 
 	$(function() {
 		var pos = 0;
-		var loadBig = function(e) {
+		var loadCC = function(e) {
 			k.getImage(e.target.name, function(image) {
-				$('#big .modal-body .big-img').html('<img src="' + image.url + '" />');
+				$('#create-caption .modal-body .big-img').html('<img src="' + image.url + '" />');
 				$('#caption-img-id').val(e.target.name);
 			});
 		}
@@ -46,9 +46,9 @@
 		});
 		
 		k.mapImages(50, function(image) {
-			$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#big"><img src="' + image.url + '" name="' + image.name + '" /></a></div>')
+			$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#create-caption"><img src="' + image.url + '" name="' + image.name + '" /></a></div>')
 			pos = (pos + 1) % 4;
-			$('#kapfun-gallery div a').click(loadBig);
+			$('#kapfun-gallery div a').click(loadCC);
 		})
 	});
 	</script>
