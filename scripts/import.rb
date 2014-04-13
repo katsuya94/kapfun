@@ -15,6 +15,6 @@ root.css('a.trending_tag').each do |category|
 		link = post.css('.click_glass')[0]
 		node = Nokogiri::HTML(open(link['href'])) if link
 		src = node.xpath("//meta[@property='og:image' and not(contains(@content, 'assets.tumblr.com'))]/@content").to_a.sample
-		fb.push("images", { :url => src, :shares => 0 }) if src
+		fb.push("images", { :url => src, :shares => 0 }) unless src.nil?
 	end
 end

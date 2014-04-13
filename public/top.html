@@ -32,12 +32,20 @@
 		<script src="js/schema.js"></script>
 		<script>
 		$(function() {
+			var pos = 0;
+			var loadBig = function(e) {
+				k.getImage(e.target.name, function(image) {
+					$('#big .modal-body .big-img').html('<img src="' + image.url + '" />');
+				});
+			}
 			$('body').loadTemplate('base.html', {
 				main: $('#content').html()
 			});
 			var k = new kapfun();
 			k.mapImages(function(image) {
-				$('#kapfun-gallery').append('<div class="col-xs-6 col-sm-3"><a href="#"><img src="' + image.url + '" /></a></div>');
+				$('#column-' + pos).append('<div><a href="#" data-toggle="modal" data-target="#big"><img src="' + image.url + '" name="' + image.name + '" /></a></div>')
+				pos = (pos + 1) % 4;
+				$('#kapfun-gallery div a').click(loadBig);
 			})
 		});
 		</script>
@@ -45,8 +53,16 @@
 
 	<body>
 	<div id="content" style="display: none;">
-		<h1 style="font-family: komikax; padding: 12pt; text-align: center; margin: 0">TRENDING IMAGES</h1>
-		<div class="row" id="kapfun-gallery">
+		<h1>TRENDING IMAGES</h1>
+		<div id="kapfun-gallery">
+			<div class="col-xs-12 col-sm-6 col-md-3" id="column-0">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3" id="column-1">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3" id="column-2">
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3" id="column-3">
+			</div>
 		</div>
 	</div>
 	</body>

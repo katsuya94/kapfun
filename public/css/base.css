@@ -104,15 +104,16 @@ body {
 }
 
 #kapfun-gallery div {
-	box-sizing: border-box;
-	border: 1px solid #f39c12;
 	padding: 0;
 	margin: 0;
-	overflow: hidden;
-	height: 127px;
 }
 
-#kapfun-gallery div img {
+#kapfun-gallery div div {
+	padding: 2px;
+	margin: 0;
+}
+
+#kapfun-gallery div a img {
 	width: 100%; 
 }
 
@@ -145,4 +146,15 @@ body {
 	border-radius: 5px;
 	padding: 10pt;
 	margin-bottom: 10pt;
+}
+
+#kapfun-main h1 {
+	font-family: komikax;
+	padding: 12pt;
+	text-align: center;
+	margin: 0;
+}
+
+.modal-body img {
+	width: 100%;
 }

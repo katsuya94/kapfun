@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="big" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -7,7 +7,17 @@
 				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
 			</div>
 			<div class="modal-body">
-				
+				<div class="big-img"></div>
+			</div>
+			<div class="modal-footer">
+				<form class="form-inline" role="form" style="text-align: right;">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Caption..." />
+					</div>
+					<div class="form-group">
+						<input type="submit" class="btn btn-primary" value="Submit" />
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -32,10 +42,9 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="index.html">Home</a></li>
-				<li><a href="top.html">Top Ten</a></li>
+				<li><a href="top.html">Trending</a></li>
 				<li><a href="submit.html">Submit</a></li>
 				<li><a href="#">About Kapfun</a></li>
-				<li><a href="#">How It Works</a></li>
 			</ul>
 			<form class="navbar-form navbar-right">
 				<a class="btn btn-social-icon btn-facebook" role="button"><i class="fa fa-facebook"></i></a>
@@ -53,5 +62,5 @@
 	</div>
 </div>
 <div class="container" id="kapfun-footer">
-	Home | About | Contact
+	<a href="index.html">Home</a> | <a href="#">About</a> | <a href="#">Contact</a>
 </div>

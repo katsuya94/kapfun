@@ -43,12 +43,24 @@ function _kapfun() {
 		});
 	};
 
-	object.prototype.getImage = function(id) {
-		return images.child(id);
+	object.prototype.getImage = function(id, callback) {
+		var image = images.child(id);
+		image.on('value', function(s) {
+			var r = s.val();
+			r.name = s.name();
+			callback(r);
+		});
+		return image;
 	};
 
-	object.prototype.getCaption = function(id) {
-		return captions.child(id);
+	object.prototype.getCaption = function(id, callback) {
+		var caption = captions.child(id);
+		caption.on('value', function(s) {
+			var r = s.val();
+			r.name = s.name();
+			callback(r);
+		});
+		return caption;
 	};
 
 	object.prototype.mapImageCaptions = function(image, callback) {
@@ -62,7 +74,9 @@ function _kapfun() {
 
 	object.prototype.mapImages = function(callback) {
 		images.on('child_added', function(s) {
-			callback(s.val());
+			var r = s.val();
+			r.name = s.name();
+			callback(r);
 		});
 	};
 
