@@ -48,7 +48,8 @@ $(function() {
 				data: {
 					image: $('#upload-url').val()
 				},
-				success: success
+				success: success,
+				error: modalError
 			});
 		} else if (files) {
 			var data = new FormData();
@@ -64,7 +65,8 @@ $(function() {
 					Authorization: 'Client-ID 5b607a26ccbd041',
 				},
 				data: data,
-				success: success
+				success: success,
+				error: modalError
 			});
 		} else {
 			modalError();
