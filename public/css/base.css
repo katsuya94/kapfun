@@ -8,7 +8,6 @@ body {
 }
 
 * {
-	font-family: "Comic Sans MS", cursive, sans-serif;
 	font-size: 12pt;
 	color: #ffffff;
 }
@@ -19,6 +18,10 @@ body {
 
 .modal div {
 	color: #555;
+}
+
+.navbar {
+	font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
 .navbar-default {

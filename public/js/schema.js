@@ -91,7 +91,7 @@ function _kapfun() {
 	};
 
 	object.prototype.mapImages = function(limit, callback) {
-		images.limit(limit).on('child_added', function(s) {
+		images.endAt(0.25 + Math.random() * 0.5).limit(limit).on('child_added', function(s) {
 			var r = s.val();
 			r.name = s.name();
 			callback(r);
